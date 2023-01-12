@@ -1,0 +1,8 @@
+{
+    "messages":{
+        "successLogin":"You have successfully Login",
+        "successRegister":"You have sucessfully Register Now Login using the credentials",
+        "errorLogin":"Invalid credentials. Login Failed!",
+        "errorRegister":"Please try again"
+    }
+}
