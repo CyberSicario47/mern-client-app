@@ -1,12 +1,11 @@
 import React from "react";
 import Alert from "react-bootstrap/Alert";
 
-const Error = () => {
+const Error = (props) => {
   <Alert variant="danger" dismissible>
-    <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+    <Alert.Heading>Oh snap! An error occured!</Alert.Heading>
     <p>
-      There is an error caused from the Servers.
-      Please Try Again
+      {props.description}
     </p>
   </Alert>;
 };
