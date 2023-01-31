@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Modal, Button, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
-export default function Room({ room }) {
+export default function Room({ room, startDate, endDate }) {
   const [show, setShow] = useState(false);
-
+  useEffect(()=>{
+    console.log(startDate,endDate)
+  },[startDate,endDate])
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -24,9 +26,9 @@ export default function Room({ room }) {
           <p>Type: {room.type}</p>
         </b>
         <div style={{ float: "right" }}>
-          <Link to={`/book/${room._id}`}>
+          {startDate && endDate &&<Link to={`/book/${room._id}/${startDate}/${endDate}`}>
             <button className="btn btn-dark">Book Now</button>
-          </Link>
+          </Link>}
           &nbsp;
           <Button variant="dark" onClick={handleShow}>View Details</Button>
         </div>
