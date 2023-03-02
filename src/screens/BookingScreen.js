@@ -14,6 +14,7 @@ export default function BookingScreen() {
   const [error, setError] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0)
 
+  const user = JSON.parse(window.localStorage.getItem('user'))
   let { bookId, startDate, endDate } = useParams();
 
   startDate = dayjs(startDate).format("YYYY-MM-DD");
@@ -46,13 +47,14 @@ export default function BookingScreen() {
   console.log(token)
     const bookingDetails = {
       roomData,
-      userId: window.localStorage.getItem('user')._id,
+      userId: user._id,
       fromDate: startDate,
       toDate: endDate,
       totalAmount,
       totalDays,
       token
     }
+    console.log(bookingDetails, user)
     try {
       const result = await instance.post("/api/bookings/bookroom",bookingDetails)
       console.log(result,'this is the result')

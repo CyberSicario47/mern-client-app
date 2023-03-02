@@ -44,6 +44,11 @@ export default function Navbar() {
                 Home
               </a>
             </li>
+            {user && <li className="nav-item">
+              <a className="nav-link active" aria-current="page" href="/profile">
+                Profile
+              </a>
+            </li>}
           </ul>
           {user ? (
             <Dropdown style={{ marginLeft: "auto" }}>

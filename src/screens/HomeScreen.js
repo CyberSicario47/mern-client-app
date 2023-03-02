@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { Typography, Box, Grid, Paper } from "@mui/material";
+import {Typography, Box, Grid, Paper, Input, Select, FormControl, InputLabel, MenuItem} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Button } from "react-bootstrap";
 import dayjs from "dayjs";
@@ -30,6 +30,8 @@ export default function HomeScreen() {
   const [error, setError] = useState(false);
   const [startValue, setStartValue] = useState(null);
   const [endValue, setEndValue] = useState(null);
+  const [type, setType] = useState("");
+  const [selectKey, setSelectKey] = useState("");
 
   let params = useParams();
   console.log(params);
@@ -49,6 +51,16 @@ export default function HomeScreen() {
       console.log(e);
     }
   };
+
+  const filterBySearch=()=>{
+    const temps = duplicateRooms.filter(room=>room.name.toLowerCase().includes(selectKey.toLowerCase()))
+    setRoomsData(temps)
+  }
+  const filterByType=(e)=>{
+    console.log(e)
+    const temps = duplicateRooms.filter(room=>room.type.toLowerCase() === e.target.value.toLowerCase())
+    setRoomsData(temps)
+  }
   const filterDates = () => {
     let tempRooms = [];
     let avaliability = false;
@@ -97,7 +109,7 @@ export default function HomeScreen() {
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 2 }}
           >
-            <Grid item xs={4}>
+            <Grid item xs={2}>
               <Item>
                 <DatePicker
                   label="Check-in"
@@ -120,7 +132,7 @@ export default function HomeScreen() {
                 </Box>
               </Item>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={2}>
               <Item>
                 <DatePicker
                   label="Check-out"
@@ -141,6 +153,29 @@ export default function HomeScreen() {
                 <Button variant="dark" onClick={filterDates}>Filter</Button>
               </Item>
             </Grid>
+            <Grid item xs={2}>
+              <Item>
+                <Input placeholder="search" value={selectKey} onChange={(e)=>setSelectKey(e.target.value)} onKeyUp={filterBySearch}/>
+              </Item>
+            </Grid>
+            <Grid item xs={2}>
+              <Item>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                  <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={type}
+                      label="Type"
+                      onChange={filterByType}
+                  >
+                    <MenuItem value="">All</MenuItem>
+                    <MenuItem value="delux">Deluxe</MenuItem>
+                    <MenuItem value="non-delux">Non-Deluxe</MenuItem>
+                  </Select>
+                </FormControl>
+              </Item>
+            </Grid>
           </Grid>
         </LocalizationProvider>
       </div>
@@ -148,8 +183,6 @@ export default function HomeScreen() {
         <div>
           {loading ? (
             <Loading color="#000" loading={loading} />
-          ) : error ? (
-            <Error description={messages.messages.homeErrorMessage} />
           ) : (
             <React.Fragment>
               <Success description={""} />

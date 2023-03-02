@@ -6,6 +6,8 @@ import RoomScreen from "./screens/RoomScreen";
 import BookingScreen from "./screens/BookingScreen";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import LoginForm from "./components/LoginForm/LoginForm";
+import ProfileScreen from "./screens/ProfileScreen";
+import AdminScreen from "./screens/AdminScreen";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/home" element={<HomeScreen />} />
+          <Route path="/profile" element={<ProfileScreen />} />
+          <Route path="/admin" element={<AdminScreen />} />
           <Route path="/room/:roomId" element={<RoomScreen/>} />
           <Route path="/book/:bookId/:startDate/:endDate" element={<BookingScreen/>} />
         </Routes>
